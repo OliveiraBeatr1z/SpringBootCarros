@@ -5,9 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/marca")
@@ -20,16 +18,29 @@ public class MarcaController {
     public String carregaPaginaListagem(Model model){
         System.out.println("Acessando /marca/listagem");
         model.addAttribute("lista", marcaRepository.findAll());
-        return "marca/listagem";
+        return "example/frota/marca/listagem";
     }
     @GetMapping ("/formulario")
-    public String carregaPaginaFormulario(Model model){
-        return "marca/formulario";
+    public String carregaPaginaFormulario(Long id, Model model){
+        if(id != null){
+           var marca = marcaRepository.getReferenceById(id);
+           model.addAttribute("marca", marca);
+        }
+        return "example/frota/marca/formulario";
     }
+
     @PostMapping
     @Transactional
     public String cadastrar (@Valid DadosCadastroMarca dados) {
         marcaRepository.save(new Marca(dados));
+        return "redirect:marca";
+    }
+
+    @PutMapping
+    @Transactional
+    public String atualizar (DadosAtualizacaoMarca dados) {
+        var marca = marcaRepository.getReferenceById(dados.id());
+        marca.atualizarInformacoes(dados);
         return "redirect:marca";
     }
 

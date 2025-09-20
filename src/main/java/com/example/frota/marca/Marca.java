@@ -21,4 +21,11 @@ public class Marca {
         this.nome = dados.nome();
         this.pais = dados.pais();
     }
+
+    public void atualizarInformacoes(DadosAtualizacaoMarca dados){
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+            this.pais = dados.pais();
+        }
+    }
 }
