@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Cadastro Marca</title>
-</head>
-
+<html lang ="en" xmlns:th="http://thymeleaf.org" >
+<head th:replace="~{fragmentos/head :: head('Cadastro Marcas')}"></head>
 <body>
-    <div th:replace="fragmentos/header :: header"></div>
+<header th:replace="~{fragmentos/header :: header(activePage='marca')}"></header>
+
+<div layout:fragment="header">
     <div class="box">
         <h1>Cadastro Marca</h1>
         <form method="post" action="/marca">
-            <input type="hidden" name="id" th:value="${marca?.id}" th:if="${marca != null}">
+            <input type="hidden" name="_method" value="put" th:if="${marca!= null}">
+            <input type="hidden" name="id" th:value="${marca?.id}">
 
             <div>
                 <label for="nome"> Nome: </label>
@@ -25,6 +24,6 @@
             <input type="submit" value="Cadastrar">
         </form>
     </div>
+</div>
 </body>
-
 </html>

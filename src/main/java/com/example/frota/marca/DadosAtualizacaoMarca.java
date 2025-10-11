@@ -6,6 +6,5 @@ public record DadosAtualizacaoMarca (
         @NotNull
         Long id,
         String nome,
-        String pais
-){
+        String pais){
 }
